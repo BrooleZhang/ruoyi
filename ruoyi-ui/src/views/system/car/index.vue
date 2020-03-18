@@ -224,7 +224,7 @@ export default {
     };
   },
   created() {
-    // this.getList();
+    this.getList();
     this.getDicts("sys_car_status").then(response => {
       this.statusOptions = response.data;
     });

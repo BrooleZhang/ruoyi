@@ -35,7 +35,7 @@ public class SysPostController extends BaseController
     @Autowired
     private ISysPostService postService;
 
-    /**
+     /**
      * 获取岗位列表
      */
     @PreAuthorize("@ss.hasPermi('system:post:list')")
