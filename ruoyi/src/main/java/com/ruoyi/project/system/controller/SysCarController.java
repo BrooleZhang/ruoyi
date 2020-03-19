@@ -57,16 +57,18 @@ public class SysCarController extends BaseController
     /**
      * 根据车辆编号获取详细信息
      */
-//    @PreAuthorize("@ss.hasPermi('system:post:query')")
-//    @GetMapping(value = "/{postId}")
-//    public AjaxResult getInfo(@PathVariable Long postId)
-//    {
-//        return AjaxResult.success(postService.selectPostById(postId));
-//    }
+    @PreAuthorize("@ss.hasPermi('system:car:query')")
+    @GetMapping(value = "/{carId}")
+    public AjaxResult getInfo(@PathVariable Long carId)
+    {
+        return AjaxResult.success(carService.selectCarById(carId));
+    }
 
     /**
      * 新增车辆
      */
+    // @PostMapping 等价于 @RequstMapping( methond = RequestMethond.POST)
+    // @Validated 校验注解，SysCar类部分属性添加 @NotBlank 校验，相当于对接收到的对象属性在Controller中开启验证
     @PreAuthorize("@ss.hasPermi('system:car:add')")
     @Log(title = "车辆管理", businessType = BusinessType.INSERT)
     @PostMapping
@@ -87,22 +89,22 @@ public class SysCarController extends BaseController
     /**
      * 修改车辆
      */
-//    @PreAuthorize("@ss.hasPermi('system:post:edit')")
-//    @Log(title = "车辆管理", businessType = BusinessType.UPDATE)
-//    @PutMapping
-//    public AjaxResult edit(@Validated @RequestBody SysPost post)
-//    {
-//        if (UserConstants.NOT_UNIQUE.equals(postService.checkPostNameUnique(post)))
-//        {
-//            return AjaxResult.error("修改车辆'" + post.getPostName() + "'失败，车辆名称已存在");
-//        }
-//        else if (UserConstants.NOT_UNIQUE.equals(postService.checkPostCodeUnique(post)))
-//        {
-//            return AjaxResult.error("修改车辆'" + post.getPostName() + "'失败，车辆编码已存在");
-//        }
-//        post.setUpdateBy(SecurityUtils.getUsername());
-//        return toAjax(postService.updatePost(post));
-//    }
+    @PreAuthorize("@ss.hasPermi('system:car:edit')")
+    @Log(title = "车辆管理", businessType = BusinessType.UPDATE)
+    @PutMapping
+    public AjaxResult edit(@Validated @RequestBody SysCar car)
+    {
+        if (UserConstants.NOT_UNIQUE.equals(carService.checkCarNameUnique(car)))
+        {
+            return AjaxResult.error("新增车辆'" + car.getCarName() + "'失败，车辆名称已存在");
+        }
+        else if (UserConstants.NOT_UNIQUE.equals(carService.checkCarCodeUnique(car)))
+        {
+            return AjaxResult.error("新增车辆'" + car.getCarName() + "'失败，车辆编码已存在");
+        }
+        car.setCreateBy(SecurityUtils.getUsername());
+        return toAjax(carService.updateCar(car));
+    }
 
     /**
      * 删除车辆

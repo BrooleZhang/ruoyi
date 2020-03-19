@@ -57,14 +57,14 @@ public class SysCarServiceImpl implements ISysCarService
     /**
      * 通过车辆ID查询车辆信息
      * 
-     * @param postId 车辆ID
+     * @param carId 车辆ID
      * @return 角色对象信息
      */
-//    @Override
-//    public SysPost selectPostById(Long postId)
-//    {
-//        return postMapper.selectPostById(postId);
-//    }
+    @Override
+    public SysCar selectCarById(Long carId)
+    {
+        return sysCarMapper.selectCarById(carId);
+    }
 
     /**
      * 根据用户ID获取车辆选择框列表
@@ -173,12 +173,12 @@ public class SysCarServiceImpl implements ISysCarService
     /**
      * 修改保存车辆信息
      * 
-     * @param post 车辆信息
+     * @param car 车辆信息
      * @return 结果
      */
-//    @Override
-//    public int updatePost(SysPost post)
-//    {
-//        return postMapper.updatePost(post);
-//    }
+    @Override
+    public int updateCar(SysCar car)
+    {
+        return sysCarMapper.updateCar(car);
+    }
 }

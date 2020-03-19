@@ -114,7 +114,6 @@ export default {
       };
     },
     handleLogin() {
-      debugger;
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;

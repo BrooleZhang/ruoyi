@@ -29,10 +29,10 @@ public interface SysCarMapper
     /**
      * 通过车辆ID查询车辆信息
      * 
-     * @param postId 车辆ID
+     * @param carId 车辆ID
      * @return 角色对象信息
      */
-//    public SysPost selectPostById(Long postId);
+    public SysCar selectCarById(Long carId);
 
     /**
      * 根据用户ID获取车辆选择框列表
@@ -69,10 +69,10 @@ public interface SysCarMapper
     /**
      * 修改车辆信息
      * 
-     * @param post 车辆信息
+     * @param car 车辆信息
      * @return 结果
      */
-//    public int updatePost(SysPost post);
+    public int updateCar(SysCar car);
 
     /**
      * 新增车辆信息

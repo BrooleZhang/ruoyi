@@ -97,10 +97,14 @@
       <el-table-column label="使用状态" align="center" prop="status" :formatter="statusFormat" />
       <el-table-column label="购车时间" align="center" prop="carCreateTime" width="180">
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.carCreateTime) }}</span>
+          <span>{{ parseTime(scope.row.carCreateTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="车辆里程" align="center" prop="mileages" />
+      <el-table-column label="车辆里程" align="center" prop="mileages" >
+        <template slot-scope="scope">
+          <span>{{ scope.row.mileages }}KM</span>
+        </template>
+      </el-table-column>
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
@@ -138,16 +142,16 @@
     <el-dialog :title="title" :visible.sync="open" width="500px">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="车辆名称" prop="carName">
-          <el-input v-model="form.carName" placeholder="请输入车辆名称" />
+          <el-input v-model="form.carName" placeholder="请输入车辆名称" maxlength="50"/>
         </el-form-item>
         <el-form-item label="车辆编码" prop="carCode">
-          <el-input v-model="form.carCode" placeholder="请输入编码名称" />
+          <el-input v-model="form.carCode" placeholder="请输入编码名称" maxlength="64"/>
         </el-form-item>
         <el-form-item label="车辆顺序" prop="carSort">
           <el-input-number v-model="form.carSort" controls-position="right" :min="0" />
         </el-form-item>
         <el-form-item label="使用状态" prop="status">
-          <el-select v-model="form.status" placeholder="车辆状态" clearable size="small">
+          <el-select v-model="form.status" placeholder="车辆状态" size="small">
             <el-option
               v-for="dict in statusOptions"
               :key="dict.dictValue"
@@ -159,8 +163,15 @@
         <el-form-item label="车辆里程" prop="mileages">
           <el-input v-model="form.mileages" placeholder="请输入车辆里程" />
         </el-form-item>
+        <el-form-item label="购车时间" prop="carCreateTime">
+          <el-date-picker
+            v-model="form.carCreateTime"
+            type="date"
+            placeholder="选择日期">
+          </el-date-picker> 
+        </el-form-item>
         <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" maxlength="500"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -205,7 +216,8 @@ export default {
         pageSize: 10,
         postCode: undefined,
         postName: undefined,
-        status: undefined
+        status: undefined,
+        carCreateTime: ''
       },
       // 表单参数
       form: {},
@@ -255,9 +267,10 @@ export default {
         carCode: undefined,
         carName: undefined,
         carSort: 0,
-        status: "0",
+        status: "1",
         remark: undefined,
-        mileages: 1
+        mileages: 0,
+        carCreateTime: ''
       };
       this.resetForm("form");
     },

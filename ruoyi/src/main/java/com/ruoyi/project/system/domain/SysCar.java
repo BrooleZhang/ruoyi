@@ -41,7 +41,7 @@ public class SysCar extends BaseEntity
     private String status;
 
     /** 购车时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "购车时间")
     private Date carCreateTime;
 
